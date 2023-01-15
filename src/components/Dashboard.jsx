@@ -10,6 +10,8 @@ import { Modal, ModalBody } from "react-bootstrap";
 import TaskModal from "./TaskModal";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import EditTask from "./EditTask"
+import DeleteTask from "./DeleteTask";
 
 const Dashboard = () => {
     const params = useParams();
@@ -23,6 +25,8 @@ const Dashboard = () => {
     const [taskData, setTaskData] = useState({})
     const [isData, setData] = useState(false);
     const [filterData, setFilterData] = useState("");
+    const [isEdit, setEdit] = useState(false);
+    const [isDelete, setDelete] = useState(false);
 
     const getTaskByUserId = async (id) => {
         const res = await axios.get("http://localhost:8080/api/v1/get/task/" + id)
@@ -134,8 +138,8 @@ const Dashboard = () => {
 
                     <hr></hr>
                     <button style={{ backgroundColor: " #bcc2fa ", color: "white", marginLeft: "5px" }} onClick={() => setAdd(true)}> ADD</button>
-                    <button style={{ backgroundColor: " #bcc2fa ", color: "white", marginLeft: "10px" }}>EDIT</button>
-                    <button style={{ backgroundColor: " #bcc2fa ", color: "white", marginLeft: "10px" }}>DELETE</button>
+                    <button style={{ backgroundColor: " #bcc2fa ", color: "white", marginLeft: "10px" }} onClick={() => { setEdit(true) }}>EDIT</button>
+                    <button style={{ backgroundColor: " #bcc2fa ", color: "white", marginLeft: "10px" }} onClick={() => { setDelete(true) }}>DELETE</button>
                     <button style={{ backgroundColor: " #bcc2fa ", color: "white", marginLeft: "10px" }} onClick={() => taskDone()}>DONE</button>
                     <button style={{ backgroundColor: " #bcc2fa", color: "white", marginLeft: "10px" }} onClick={() => logout()}> LOGOUT</button>
                     <hr></hr>
@@ -163,6 +167,37 @@ const Dashboard = () => {
                                     </ModalBody>
                                     <Modal.Footer>
                                         <button onClick={() => { setAdd(false); getTaskByUserId(params.id) }}>close</button>
+                                    </Modal.Footer>
+                                </Modal>
+                            </div>
+                        ) : null
+                    }
+
+                    {
+                        isEdit ? (
+                            <div>
+                                <Modal show={isEdit} onHide={() => { setEdit(false) }}>
+                                    <Modal.Header closeButton></Modal.Header>
+                                    <ModalBody>
+                                        <EditTask taskAddedByUser={taskDetails} />
+                                    </ModalBody>
+                                    <Modal.Footer>
+                                        <button onClick={() => { setEdit(false); getTaskByUserId(params.id) }}>close</button>
+                                    </Modal.Footer>
+                                </Modal>
+                            </div>
+                        ) : null
+                    }
+                    {
+                        isDelete ? (
+                            <div>
+                                <Modal show={isDelete} onHide={() => { setDelete(false) }}>
+                                    <Modal.Header closeButton></Modal.Header>
+                                    <ModalBody>
+                                        <DeleteTask taskAddedByUser={taskDetails} />
+                                    </ModalBody>
+                                    <Modal.Footer>
+                                        <button onClick={() => { setDelete(false); getTaskByUserId(params.id) }}>close</button>
                                     </Modal.Footer>
                                 </Modal>
                             </div>
