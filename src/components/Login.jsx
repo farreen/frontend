@@ -2,7 +2,7 @@
 import axios from "axios";
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom";
-const Login = (props) => {
+const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,15 +19,14 @@ const Login = (props) => {
     }
     
   }
-    
   
-  const navigation = async(path) => {
+  const navigateToReg = async(path) => {
     navigate(path)
   }
   
   return (
    
-    <div  style={styles.formContainer}>
+    <div style={styles.formContainer}>
        <h2 style={styles.formTitle}>TASK MANAGEMENT </h2>
       <form style={styles.form} onSubmit={handleSubmit}>
         <div style={styles.formContent}>
@@ -57,13 +56,12 @@ const Login = (props) => {
               Submit
             </button>
 
-            <button className="link-btn" onClick={() => navigation("/register")}>
+            <button className="link-btn" onClick={() => navigateToReg("/register")}>
              Don't have an account? Register here.
            </button>
           </div>
         </div>
       </form>
-
     </div>
   )
 }
@@ -107,6 +105,5 @@ const styles = {
         paddingLeft: "12%",
         paddingRight: "12%"
     },
-
 }
 
