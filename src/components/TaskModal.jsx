@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useState } from "react";
-// import { Modal, ModalBody } from "react-bootstrap";
 
 const TaskModal = ({taskAddedByUser}) => {
   const [taskAddedBy, setTaskAddedBy] = useState(taskAddedByUser);
@@ -44,7 +43,7 @@ const TaskModal = ({taskAddedByUser}) => {
               value={taskTitle}
               onChange={(e) => setTaskTitle(e.target.value)}
             />
-          </div>
+      </div>
 
       <div className="form-group mt-3">
       <label>Enter Task Description</label>
